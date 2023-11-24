@@ -4,12 +4,8 @@ import BlogList from '../../components/Home/BlogList';
 import Header from '../../components/Home/Header';
 import SearchBar from '../../components/Home/SearchBar';
 import { blogList } from '../../config/data';
-// import Register from './components/Register/Register';
 
-
-
-const savedList = JSON.parse(localStorage.getItem('saved-blogs')
-) || []
+const savedList = JSON.parse(localStorage.getItem('saved-blogs')) || [];
 const Home = () => {
   const [blogs, setBlogs] = useState([...blogList, ...savedList]);
   const [searchKey, setSearchKey] = useState('');
@@ -20,18 +16,21 @@ const Home = () => {
     handleSearchResults();
   };
 
-  // Search for blog by category
+  // Search for blog by category, title, subcategory, and description
   const handleSearchResults = () => {
-    const allBlogs = blogList;
+    const allBlogs = blogList.concat(savedList);
     const filteredBlogs = allBlogs.filter((blog) =>
-      blog.category.toLowerCase().includes(searchKey.toLowerCase().trim())
+      blog.category.toLowerCase().includes(searchKey.toLowerCase().trim()) ||
+      blog.title.toLowerCase().includes(searchKey.toLowerCase().trim()) ||
+      blog.subCategory.some(sub => sub.toLowerCase().includes(searchKey.toLowerCase().trim())) ||
+      blog.description.toLowerCase().includes(searchKey.toLowerCase().trim())
     );
     setBlogs(filteredBlogs);
   };
 
   // Clear search and show all blogs
   const handleClearSearch = () => {
-    setBlogs(blogList);
+    setBlogs([...blogList, ...savedList]);
     setSearchKey('');
   };
 

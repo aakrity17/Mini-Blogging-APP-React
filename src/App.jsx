@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import Nav from './components/Nav/Nav';
 import Create from './pages/Create/Index';
 import About from './components/About/About';
+import Register from './components/Register/Register';
+import Login from './components/Login/Login'
 // import Register from '../../components/Register/Register';
 
 
@@ -17,7 +19,10 @@ const App = () => {
         <Route path='/' element={<Home />} />
         <Route path='/create' element={<Create />} />
         <Route path='/blog/:id' element={<Blog />} />
-        <Route path='/abou t' element={<About />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/login' element={<Login />} />
+
         {/* <Route path='/register' element={<Register />} /> */}
       </Routes>
     </div>

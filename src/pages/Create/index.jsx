@@ -9,16 +9,15 @@ export default function Create() {
     const [description, setDescription] = useState("");
     const [Author, setAuthor] = useState("");
     const [category, setCategory] = useState("");
-    const [image, setimage] = useState("");
+    const [image, setImage] = useState("");
     const [formSubmitted, setFormSubmitted] = useState(false);
-    const [iimage, setImage] = useState(null);
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
 
         // Check if all required fields are filled
-        if (!title || !description || !Author || !category || !image) {
-            alert('Please fill in all required fields including the image');
+        if (!title || !description || !Author || !category) {
+            alert('Please fill in all required fields');
             return;
         }
 
@@ -48,8 +47,8 @@ export default function Create() {
         const file = e.target.files[0];
 
         if (file) {
-            setimage(URL.createObjectURL(file));
-            setImage(file);
+            setImage(URL.createObjectURL(file));
+            setImage(file, Text);
         }
     };
 

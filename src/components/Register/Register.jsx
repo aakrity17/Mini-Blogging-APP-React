@@ -1,192 +1,108 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import zxcvbn from 'zxcvbn';
 
-function Register() {
-    const containerStyle = {
-        background: 'linear-gradient(to top, #76b852, #8DC26F)',
-        backgroundSize: 'cover',
-        backgroundAttachment: 'fixed',
-        fontFamily: 'Roboto, sans-serif',
+const RegistrationForm = () => {
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm();
+
+    const [registered, setRegistered] = useState(false);
+
+    const onSubmit = (data) => {
+        // Check if the email is already registered
+        const existingUsers = JSON.parse(localStorage.getItem("registered-users")) || [];
+        const isEmailRegistered = existingUsers.some(user => user.email === data.email);
+
+        if (isEmailRegistered) {
+            alert('Email is already registered. Please use a different email.');
+        } else {
+            // Store registration details in local storage
+            const newUser = {
+                email: data.email,
+                password: data.password,
+            };
+            localStorage.setItem('registered-users', JSON.stringify([...existingUsers, newUser]));
+
+            // Display the "Registered" message
+            setRegistered(true);
+        }
     };
 
-    const headingStyle = {
-        fontSize: '3em',
-        textAlign: 'center',
-        color: '#fff',
-        fontWeight: 100,
-        textTransform: 'capitalize',
-        letterSpacing: '4px',
-        fontFamily: 'Roboto, sans-serif',
-    };
-
-    const mainW3layoutsStyle = {
-        padding: '3em 0 1em',
-    };
-
-    const mainAgileinfoStyle = {
-        width: '35%',
-        margin: '3em auto',
-        background: 'rgba(0, 0, 0, 0.18)',
-        backgroundSize: 'cover',
-    };
-
-    const inputStyle = {
-        fontSize: '0.9em',
-        color: '#fff',
-        fontWeight: 100,
-        width: '94.5%',
-        display: 'block',
-        border: 'none',
-        padding: '0.8em',
-        // border: 'solid 1px rgba(255, 255, 255, 0.37)',
-        transition: 'all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1)',
-        background: 'linear-gradient(top, rgba(255, 255, 255, 0, 96%, #fff 4%)',
-        backgroundPosition: '-800px 0',
-        backgroundSize: '100%',
-        backgroundRepeat: 'no-repeat',
-        fontFamily: 'Roboto, sans-serif',
-    };
-
-    const emailInputStyle = {
-        margin: '2em 0',
-    };
-
-    const submitButtonStyle = {
-        fontSize: '0.9em',
-        color: '#fff',
-        background: '#76b852',
-        outline: 'none',
-        border: '1px solid #76b852',
-        cursor: 'pointer',
-        padding: '0.9em',
-        WebkitAppearance: 'none',
-        width: '100%',
-        margin: '2em 0',
-        letterSpacing: '4px',
-    };
-
-    const agreementLabelStyle = {
-        fontSize: '0.9em',
-        color: '#fff',
-        fontWeight: 200,
-        cursor: 'pointer',
-        position: 'relative',
-    };
-
-    const checkboxStyle = {
-        background: '#8DC26F',
-        cursor: 'pointer',
-        width: '1.2em',
-        height: '1.2em',
-    };
-
-    const agreementCheckboxStyle = {
-        background: '#8DC26F',
-        cursor: 'pointer',
-        width: '1.2em',
-        height: '1.2em',
-        before: {
-            content: '',
-            position: 'absolute',
-            width: '1.2em',
-            height: '1.2em',
-            background: 'inherit',
-            cursor: 'pointer',
-        },
-        after: {
-            content: '',
-            position: 'absolute',
-            top: '0px',
-            left: '0',
-            zIndex: 1,
-            width: '1.2em',
-            height: '1.2em',
-            borderColor: '#fff',
-            transition: '0.4s ease-in-out',
-        },
-        checked: {
-            after: {
-                transform: 'rotate(-45deg)',
-                height: '.5rem',
-                borderColor: '#fff',
-                borderTopColor: 'transparent',
-                borderRightColor: 'transparent',
-            },
-        },
-        animChecked: {
-            after: {
-                transform: 'rotate(-45deg)',
-                height: '.5rem',
-                borderColor: 'transparent',
-                borderRightColor: 'transparent',
-                animation: '0.4s rippling 0.4s ease',
-                animationFillMode: 'forwards',
-            },
-        },
-    };
-
-    const copyrightStyle = {
-        margin: '2em 0 1em',
-        textAlign: 'center',
-    };
-
-    const copyrightParagraphStyle = {
-        fontSize: '0.9em',
-        color: '#fff',
-        lineHeight: '1.8em',
-        letterSpacing: '1px',
-        fontWeight: 100,
-    };
-
-    const linkStyle = {
-        color: '#fff',
-        transition: '0.5s all',
-        WebkitTransition: '0.5s all',
-        MozTransition: '0.5s all',
-        OTransition: '0.5s all',
-        MsTransition: '0.5s all',
-        fontWeight: 400,
-    };
+    const password = watch('password', '');
 
     return (
-        <div style={containerStyle}>
-            <div className="main-w3layouts wrapper" style={mainW3layoutsStyle}>
-                <h1 style={headingStyle}>Creative SignUp Form</h1>
-                <div className="main-agileinfo" style={mainAgileinfoStyle}>
-                    <div className="agileits-top">
-                        <form action="/" method="post">
-                            <input style={inputStyle} type="text" name="Username" placeholder="Username" required />
-                            <input style={{ ...inputStyle, ...emailInputStyle }} type="email" name="email" placeholder="Email" required />
-                            <input style={inputStyle} type="password" name="password" placeholder="Password" required />
-                            <input style={inputStyle} type="password" name="confirmPassword" placeholder="Confirm Password" required />
-                            <div className="wthree-text">
-                                <label style={agreementLabelStyle}>
-                                    <input type="checkbox" style={checkboxStyle} required />
-                                    <span>I Agree To The Terms & Conditions</span>
-                                </label>
-                                <div className="clear"> </div>
-                            </div>
-                            <input style={submitButtonStyle} type="submit" value="SIGNUP" />
-                        </form>
+        <div className="registration-form-container">
+            <h2>Registration Form</h2>
+            {!registered ? (
+                <form onSubmit={handleSubmit(onSubmit)} className="registration-form">
+                    <div className="form-group">
+                        <label>Email:</label>
+                        <input
+                            {...register('email', {
+                                required: 'This field is required',
+                                pattern: {
+                                    value: /^\S+@\S+$/i,
+                                    message: 'Invalid email address',
+                                },
+                            })}
+                            className={`form-control ${errors.email ? 'error' : ''}`}
+                        />
+                        <p className="error-message">{errors.email?.message}</p>
                     </div>
+
+                    <div className="form-group">
+                        <label>Password:</label>
+                        <input
+                            type="password"
+                            {...register('password', {
+                                required: 'This field is required',
+                                minLength: {
+                                    value: 6,
+                                    message: 'Password must have at least 6 characters',
+                                },
+                            })}
+                            className={`form-control ${errors.password ? 'error' : ''}`}
+                        />
+                        <p className="error-message">{errors.password?.message}</p>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Confirm Password:</label>
+                        <input
+                            type="password"
+                            {...register('confirmPassword', {
+                                validate: (value) =>
+                                    value === password || 'Passwords do not match',
+                            })}
+                            className={`form-control ${errors.confirmPassword ? 'error' : ''}`}
+                        />
+                        <p className="error-message">{errors.confirmPassword?.message}</p>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Password Strength:</label>
+                        <progress
+                            value={zxcvbn(password).score}
+                            max="4"
+                            className={`password-strength ${password && password.length > 0 ? 'visible' : ''}`}
+                        ></progress>
+                    </div>
+
+                    <button type="submit" className="submit-button">
+                        Register
+                    </button>
+                </form>
+            ) : (
+                <div className="registered-message">
+                    <p>Successfully registered!</p>
                 </div>
-                <div className="colorlibcopy-agile" style={copyrightStyle}>
-                    <p style={copyrightParagraphStyle}>© 2018 Colorlib Signup Form. All rights reserved | Design by <a href="https://colorlib.com/" style={linkStyle} target="_blank">Colorlib</a></p>
-                </div>
-                <ul className="colorlib-bubbles">
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                </ul>
-            </div>
+            )}
         </div>
     );
-}
+};
 
-export default Register;
+export default RegistrationForm;

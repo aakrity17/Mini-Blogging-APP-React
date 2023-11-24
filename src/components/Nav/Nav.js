@@ -1,52 +1,64 @@
-import React from 'react';
+import { useState } from 'react';
+import About from '../About/About'
 
-export default function Nav() {
+function Nav() {
+    const [showAboutUs, setShowAboutUs] = useState(false);
+
+    const handleAboutUsClick = () => {
+        setShowAboutUs(true);
+    };
+
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand" href="/">
-                <img src="/assets/images/logo.png" alt="Logo" width="80" />
-            </a>
-            <button
-                className="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-            >
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul className="navbar-nav mr-auto">
-                    <li className="nav-item">
-                        <a className="nav-link" href="/">
-                            Home
-                        </a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="/About">
-                            About
-                        </a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="/Blogs">
-                            Blogs
-                        </a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="/register">
-                            Register
-                        </a>
-                    </li>
-
-                    <li className="nav-item">
-                        <a className="nav-link" href="/create">
-                            Create New
-                        </a>
-                    </li>
-                </ul>
-                {/* <form className="form-inline my-2 my-lg-0">
+        <div>
+            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <a className="navbar-brand" href="/">
+                    <img src="/assets/images/logo.png" alt="Logo" width="100" />
+                </a>
+                <button
+                    className="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul className="navbar-nav mr-auto">
+                        <li className="nav-item">
+                            <a className="nav-link" href="/">
+                                Home
+                            </a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/About">
+                                About
+                            </a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/Blogs">
+                                Blogs
+                            </a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/register">
+                                Register
+                            </a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/Login">
+                                Login
+                            </a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/create">
+                                Create New
+                            </a>
+                        </li>
+                    </ul>
+                    {/* <form className="form-inline my-2 my-lg-0">
                     <input
                         className="form-control mr-sm-2"
                         type="search"
@@ -57,7 +69,13 @@ export default function Nav() {
                         Search
                     </button>
                 </form> */}
-            </div>
-        </nav>
+                </div>
+            </nav>
+
+            {/* Render the AboutUs component if showAboutUs is true */}
+            {showAboutUs && <About />}
+        </div>
     );
 }
+
+export default Nav;
