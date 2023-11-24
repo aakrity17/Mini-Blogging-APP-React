@@ -3,7 +3,7 @@ export const blogList = [
     id: 1,
     title: ' History of computers',
     category: 'Computer',
-    subCategory: ['technology', 'computer', 'history', 'Abacus'],
+    subCategory: ['technology', 'computer', 'history', 'Abacus', 'History of computers'],
     description:
       " The Early Beginnings (Pre-20th Century): Abacus (c. 3000 BC): The abacus is one of the earliest known computing devices, consisting of beads on rods used for arithmetic calculations. Jacquard Loom (1801): Invented by Joseph-Marie Jacquard, this automated loom used punch cards to control the weaving of complex patterns, foreshadowing the idea of programmed instructions.2. Mechanical Computers (19th and Early 20th Century):Charles Babbage and the Analytical Engine (1837): Babbage's design for the Analytical Engine is considered the first general-purpose mechanical computer, featuring an arithmetic logic unit, control flow, and memory. Though never built, it laid the foundation for future computers.3. The Birth of Electronic Computers (1940s-1950s): ENIAC (1945): The Electronic Numerical Integrator and Computer (ENIAC) was the first general-purpose electronic digital computer, designed for military calculations.UNIVAC I (1951): The Universal Automatic Computer (UNIVAC I) was the first commercially produced computer, used for scientific and business applications.",
     authorName: 'Akriti Chapagai',

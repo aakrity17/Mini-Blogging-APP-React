@@ -321,3 +321,11 @@ body {
     padding: 0px;
     overflow-x: hidden;
 }
+
+/* Add this to your CSS */
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
