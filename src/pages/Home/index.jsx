@@ -22,8 +22,11 @@ const Home = () => {
     const filteredBlogs = allBlogs.filter((blog) =>
       blog.category.toLowerCase().includes(searchKey.toLowerCase().trim()) ||
       blog.title.toLowerCase().includes(searchKey.toLowerCase().trim()) ||
+      // blog.author.toLowerCase().includes(searchKey.toLowerCase().trim()) ||
+
       blog.subCategory.some(sub => sub.toLowerCase().includes(searchKey.toLowerCase().trim())) ||
       blog.description.toLowerCase().includes(searchKey.toLowerCase().trim())
+
     );
     setBlogs(filteredBlogs);
   };
